@@ -1,0 +1,206 @@
+// breakpoints.scss
+$screen: (
+  desktopWide: 1919px,
+  desktop: 1320px,
+  container: 1320px,
+  tablet: 1023px,
+  mobile: 767px,
+);
+
+@mixin sm {
+  @media screen and (max-width: map-get($screen, mobile)) {
+    @content;
+  }
+}
+
+@mixin mdMax {
+  @media screen and (max-width: map-get($screen, tablet)) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: map-get($screen, mobile)) and (max-width: map-get($screen, tablet)) {
+    @content;
+  }
+}
+
+@mixin mdMin {
+  @media screen and (min-width: map-get($screen, mobile)) {
+    @content;
+  }
+}
+
+@mixin containerMin {
+  @media screen and (min-width: map-get($screen, container)) {
+    @content;
+  }
+}
+
+@mixin containerMax {
+  @media screen and (max-width: map-get($screen, container)) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: map-get($screen, tablet)) and (max-width: map-get($screen, desktop)) {
+    @content;
+  }
+}
+
+@mixin lgMax {
+  @media screen and (max-width: map-get($screen, desktop)) {
+    @content;
+  }
+}
+
+@mixin xlgMin {
+  @media screen and (min-width: map-get($screen, desktop)) {
+    @content;
+  }
+}
+
+@mixin xlg {
+  @media (min-width: map-get($screen, desktop)) and (max-width: map-get($screen, desktopWide)) {
+    @content;
+  }
+}
+
+@mixin xxlg {
+  @media screen and (min-width: map-get($screen, desktopWide)) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: map-get($screen, tablet)) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @include desktop {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// Утилиты
+
+@mixin fallback($property, $value) {
+  @supports not (#{$property}: #{$value}) {
+    @content;
+  }
+}
+
+@mixin ellipsis($maxWidth: 100%) {
+  max-width: $maxWidth;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin lineClamp($val) {
+  display: -webkit-box;
+  -webkit-line-clamp: $val;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin mw($maxWidth) {
+  width: 100%;
+  max-width: #{$maxWidth}px;
+}
+
+@mixin hideScrollbar {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--colorBorder) var(--colorBg);
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--colorBg);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--colorBorder);
+    border-radius: 20px;
+    border: 2px solid var(--colorBg);
+  }
+}
+
+@mixin flexGrid($amountPerRow, $rightIndent, $topIndent) {
+  $calculatedRightIndent: ($rightIndent * ($amountPerRow - 1)) / $amountPerRow;
+
+  width: calc(#{round(100% / $amountPerRow, 3)} - #{$calculatedRightIndent}px);
+  margin-right: #{$rightIndent}px;
+
+  &:nth-of-type(#{$amountPerRow}n) {
+    margin-right: 0;
+  }
+
+  &:nth-of-type(n + #{$amountPerRow + 1}) {
+    margin-top: #{$topIndent}px;
+  }
+}
+
+// Background helpers
+@mixin bgImg {
+  background-size: cover;
+  background-position: top left;
+  background-repeat: no-repeat;
+}
+
+@mixin bgImgCenter {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// Absolute position helpers
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absTL($top: 0, $left: 0) {
+  position: absolute;
+  top: $top;
+  left: $left;
+}
+
+@mixin absTR($top: 0, $right: 0) {
+  position: absolute;
+  top: $top;
+  right: $right;
+}
+
+@mixin absBL($bottom: 0, $left: 0) {
+  position: absolute;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin absBR($bottom: 0, $right: 0) {
+  position: absolute;
+  bottom: $bottom;
+  right: $right;
+}

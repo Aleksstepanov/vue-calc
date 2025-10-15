@@ -1,0 +1,27 @@
+@use './colors.scss';
+
+:root {
+  /* checkbox global variables */
+  --checkbox-active-bg: #{colors.get-color(orange)};
+  --checkbox-label-color: #{colors.get-color(gray, 400)};
+  --checkbox-border-color: #{colors.get-color(gray, 100)};
+  --checkbox-disabled-bg: #{colors.get-color(gray, 100)};
+
+  font-family: 'NTSomic', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  background-color: colors.get-color(gray, 100);
+}
+
+#app {
+  height: 100%;
+}
+
+img {
+  width: 100%;
+}
+
+a:hover {
+  color: #{colors.get-color(orange, 600)} !important;
+}
